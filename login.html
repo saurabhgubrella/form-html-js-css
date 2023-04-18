@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Login Here!!!</title>
+    <style>
+        body{
+            background-color:#0063a3;
+        }
+        .error{
+            color: #F70000;
+        }
+        form{
+            border: 3px solid #e0e1e9;
+            border-radius: 10px;
+            background-color: #e0e1e9 ;
+        }
+      
+        #toastNotice.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 2.5s, fadeout 2.0s 4.5s;
+    animation: fadein 2.5s, fadeout 2.0s 4.5s;
+  }
+  #toastNotice {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color:#fbad26;
+     /* Black background color */
+    color: #000; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 0; /* Center the snackbar */
+    top: 20px; /* 30px from the bottom */
+  }
+  #toasterNotice{
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color:#fbad26;
+     /* Black background color */
+    color: #000; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 0; /* Center the snackbar */
+    top: 20px; /* 30px from the bottom */
+  }
+        @media (max-width:576px){
+           .container form{
+            background-color: #e0e1e9;
+            padding: 10px;
+           }
+        }
+        @media (min-width:576px) and (max-width:1200px){
+           .row .btn{
+            text-align: center;
+            align-items: center;
+            display: flex;
+           }
+
+           form h3{
+            margin: 20px auto;
+           }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <span class="success text-center" id="success"></span>
+                <form class="col-lg-5 col-md-8 col-sm-12 col-xs-12 mx-auto px-sm-4 px-md-4"  onsubmit="return false">
+                <h3 class="text-center my-md-5 my-xs-3"> Login Here!!!</h3>
+                <div class="mb-3 row">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name ="email" onkeyup="validate(this)" required placeholder="Email"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-10 offset-2">
+                        <span id="emailError" class="error"></span>
+                    </div>
+                </div>
+               
+                <div class="mb-3 row">
+                    <label for="password" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                    <input type="password" class="form-control" id="password" name="password" onkeyup="validate(this)" required placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-10 offset-2">
+                        <span id="passwordError" class="error"></span>
+                    </div>
+                </div>
+            
+                <div class="mb-3 row">
+                    <div class="col-4">
+                        <button class="btn btn-md mx-auto" id="submit" value="submit" onclick = "check()" style="background-color: #fbad26; color: black; font-weight: 800; padding: 10px 30px; border-radius: 20px;">Login</button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-md mx-auto" style="background-color: #fbad26; color: black; font-weight: 800; padding: 10px 30px; border-radius: 20px;"><a href="./form.html">SignUp</a></button>
+                    </div>
+                    
+                    <div class="col-4">
+                       <link><a href="./forgetpassword.html">Forget Password</a></link>
+                    </div>
+                
+                </div>
+              
+                </form>
+            </div>
+        </div>
+    </div>
+        <div class="toast" id="toastNotice" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Login Successfully
+            </div>
+        </div>
+        <div class="toast" id="toasterNotice" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Login failed
+            </div>
+        </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+const button = document.getElementById("submit");
+button.disabled = true
+
+let validEmail = false
+let validPassword = false;
+
+
+function validateEmail(email){
+
+let subEmail = email.value.substring(email.value.indexOf("."));
+if(email.value != "" && email.value.indexOf("@") > 2 && email.value.charAt(0) != ""  && email.value.length>3 &&(subEmail == ".com" || subEmail == ".co.in" || subEmail == ".org.in" || subEmail == ".in")){
+  document.getElementById("emailError").innerHTML="";
+  return true
+}
+document.getElementById("emailError").innerHTML="Email should be valid with .com , .in , .co.in , .org"
+return false;    
+}
+
+function validatePassword(password){
+
+// console.log(password.value,"8787");
+upperPattern = /[A-Z]/;
+lowerpattern = /[a-z]/;
+numberPattern = /[0-9]/;
+specialPattern = /[@#\$%\^&\*\+\-\=<>|\(\){\}\?.,\/\\:`;\[\]\~]/;
+if(password.value.length >= 8 && password.value !== "" && upperPattern.test(password.value) && numberPattern.test(password.value) && specialPattern.test(password.value) ){
+    document.getElementById("passwordError").innerHTML="";
+    return true;
+}
+document.getElementById("passwordError").innerHTML="Password must have length of 6 , having at least one capital case , one small case , one number , one special case";
+return false; 
+}
+
+
+function validate(curr){
+    if(curr.id == "email"){
+        validEmail = validateEmail(curr);
+    }else if(curr.id == "password"){
+        validPassword = validatePassword(curr);
+    }
+    
+    if(validEmail == true && validPassword==true){
+    button.disabled=false
+}
+else{
+    button.disabled=true
+}
+}
+
+
+function LoginData(){
+
+var userEmailId = document.getElementById("email").value;
+console.log(userEmailId,"1234");
+
+    fetch(`http://localhost:3001/credentials/${userEmailId}`)
+    .then(response=>response.json())
+    .then(data=>validateLogin(data.userEmailId , data.userPassword))
+    .catch(err=>console.log(err))
+}
+
+function validateLogin(emailId , password){
+    var userInfo = document.getElementById("email").value;
+    var userPassword = document.getElementById("password").value;
+    console.log("2323" , userInfo)
+  if(emailId === userInfo && password === userPassword ){
+    var ec = userInfo + "+" + userPassword;
+    var z = window.btoa(ec);
+    sessionStorage.setItem("loginkey",z)
+    var myAlert = document.getElementById("toastNotice");
+          var bsAlert = new bootstrap.Toast(myAlert,{
+            delay : 5000
+          });
+          bsAlert.show();
+    window.location.replace("navbar.html")
+  }
+  else{
+    var myAlert = document.getElementById("toastNotice2");
+          var bsAlert = new bootstrap.Toast(myAlert,{
+            delay : 5000
+          });
+          bsAlert.show();
+  }
+}
+
+function check(){
+    // alert("Registered successfully...");
+    console.log("success")
+    LoginData();
+    // var interval = setInterval(myURL, 5000);
+   
+}
+// function myURL() {
+//          document.location.href = '/home/saurabh.gubrella/Htmlform/navbar.html';
+//          clearInterval(interval);
+//       }
+</script>
+</html>

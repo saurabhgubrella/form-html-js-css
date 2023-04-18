@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>NavBar</title>
+    <style>
+      body{
+          background-color:#0063a3;
+      }
+      .error{
+          color: #F70000;
+      }
+      form{
+          border: 3px solid #e0e1e9;
+          border-radius: 10px;
+          background-color: #e0e1e9 ;
+      }
+      .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+#toastNotice.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 2.5s, fadeout 2.0s 4.5s;
+    animation: fadein 2.5s, fadeout 2.0s 4.5s;
+  }
+  #toastNotice {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color:#fbad26;
+     /* Black background color */
+    color: #000; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 0; /* Center the snackbar */
+    top: 20px; /* 30px from the bottom */
+  }
+      </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-primary bg-dark">
+            <div class="container-fluid">
+              
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Home</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link active" href="" tabindex="-1" aria-current="page">Contact</a>
+                  </li>
+                </ul>
+                <form class="d-flex">
+                  
+                  <button class="btn btn-outline-success" type="submit" id="logout" onclick="logoutinfo()">Logout</button>
+                </form>
+              </div>
+             
+            </div>
+          </nav>
+         
+      <div id="myprofile">
+        <h2 style="text-align:center">User Profile Card</h2>
+
+          <div class="card">
+            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="John" style="width:100%">
+              <h1 id="name">John Doe</h1>
+                <p id="email">CEO & Founder, Example</p>
+                  <p>Harvard University</p>
+  
+                    <p id="contact">Contact</p>
+                      <div class="mb-3 row">
+                        <div class="col-12">
+
+                         <button class="btn btn-md mx-auto"  style="background-color: #fbad26; color: black; font-weight: 800; padding: 10px 20px; border-radius: 20px;"><a href="./changePassword.html"> Change Password</a></button>
+                        </div>
+                      </div>
+                <div class="mb-3 row">
+                    <div class="col-12">
+                        <button class="btn btn-md mx-auto" onclick="deleteAccount()" style="background-color: #fbad26; color: black; font-weight: 800; padding: 10px 20px; border-radius: 20px;"><a>Delete Account</a></button>
+                      </div>
+                </div>
+          </div>              
+     </div>
+     <div class="toast" id="toastNotice" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">Registered</button>
+      </div>
+      <div class="toast-body">
+        Details send successfully
+      </div>
+  </div>
+  </div>
+
+
+    
+</body>
+<script>
+  function logoutinfo(){
+    sessionStorage.clear();
+    var interval = setInterval(myURL);
+
+  }
+
+  function myURL() {
+         document.location.href = '/home/saurabh.gubrella/Htmlform/login.html';
+         clearInterval(interval);
+      }
+      var loginkey = sessionStorage.getItem("loginkey");
+
+      function myUserProfile(){
+        
+        if(loginkey!=null){
+          var data = window.atob(loginkey);
+          var email = data.split("+")[0];
+          var password = data.split("+")[1];
+        }
+        fetch(`http://localhost:3001/credentials/${email}`)
+        .then(response=>response.json())
+        .then(data=>{
+        if(data.message == "failed"){
+          document.getElementById("myprofile").innerHTML = `<span>Unauthorized Access</span>`
+          document.getElementById("logout").style.display = "none";
+        }
+        else
+         {document.getElementById("email").innerHTML= data.userEmailId
+         document.getElementById("contact").innerHTML= data.userContact
+         document.getElementById("name").innerHTML= data.userName
+        
+         }
+        })
+        .catch(err=>console.log(err))
+      }
+      myUserProfile()
+
+
+  
+      function deleteAccount(){
+        if(loginkey!=null){
+          var data = window.atob(loginkey);
+          var email = data.split("+")[0];
+          var password = data.split("+")[1];
+          console.log(email , password ,"123459" )
+        }
+        fetch(`http://localhost:3001/credentials/delete/${email}` ,{
+     method: "DELETE",
+     headers: {
+         "Content-Type": "application/json",
+     },})
+        .then((response) =>response.json())
+        .then((data) => {
+       if(data.data == "Account Delete"){
+
+        // var myAlert = document.getElementById("toastNotice");
+        // var bsAlert = new bootstrap.Toast(myAlert,{
+        // delay : 5000
+        // });
+        // bsAlert.show();
+        sessionStorage.clear();
+          window.location.replace("login.html")
+      }})
+        .catch(err => console.log(err,"12345"))
+      }
+</script>
+</html>

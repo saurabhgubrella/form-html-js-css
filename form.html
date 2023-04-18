@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Register Here</title>
+    <style>
+        body{
+            background-color:#0063a3;
+        }
+        .error{
+            color: #F70000;
+        }
+        form{
+            border: 3px solid #e0e1e9;
+            border-radius: 10px;
+            background-color: #e0e1e9 ;
+        }
+      
+        #toastNotice.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 2.5s, fadeout 2.0s 4.5s;
+    animation: fadein 2.5s, fadeout 2.0s 4.5s;
+  }
+  #toastNotice {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color:#fbad26;
+     /* Black background color */
+    color: #000; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 0; /* Center the snackbar */
+    top: 20px; /* 30px from the bottom */
+  }
+        @media (max-width:576px){
+           .container form{
+            background-color: #e0e1e9;
+            padding: 10px;
+           }
+        }
+        @media (min-width:576px) and (max-width:1200px){
+           .row .btn{
+            text-align: center;
+            align-items: center;
+            display: flex;
+           }
+
+           form h3{
+            margin: 20px auto;
+           }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <span class="success text-center" id="success"></span>
+                <form class="col-lg-5 col-md-8 col-sm-12 col-xs-12 mx-auto px-sm-4 px-md-4"  onsubmit="return false">
+                <h3 class="text-center my-md-5 my-xs-3"> Register Here!!!</h3>
+
+                <div class="mb-3 row">
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" onkeyup="validate(this)" required placeholder="Name"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-10 offset-2">
+                        <span id="nameError" class="error"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name ="email" onkeyup="validate(this)" required placeholder="Email"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-10 offset-2">
+                        <span id="emailError" class="error"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="contactNumber" class="col-sm-2 col-form-label">Contact Number</label>
+                    <div class="col-sm-10">
+                    <input type="tel" class="form-control" id="contactNumber" name="contactNumber" onkeyup="validate(this)" required placeholder="PhoneNumber"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-10 offset-2">
+                        <span id="contactError" class="error"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="password" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                    <input type="password" class="form-control" id="password" name="password" onkeyup="validate(this)" required placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-10 offset-2">
+                        <span id="passwordError" class="error"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-9">
+                        <button class="btn btn-md mx-auto" id="submit" value="submit" onclick = "check()" style="background-color: #fbad26; color: black; font-weight: 800; padding: 10px 30px; border-radius: 20px;"> Register </button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-md mx-auto" style="background-color: #fbad26; color: black; font-weight: 800; padding: 10px 30px; border-radius: 20px;"> <a href="./login.html">Login</a></button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        <div class="toast" id="toastNotice" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">Registered</button>
+            </div>
+            <div class="toast-body">
+              Details send successfully
+            </div>
+        </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+
+const button = document.getElementById("submit");
+button.disabled = true
+
+
+let validName = false;
+let validEmail = false;
+let validContact = false;
+let validPassword = false;
+
+
+
+
+
+   
+
+
+
+function apiData(){
+
+    var userName = document.getElementById("name").value;
+var userEmailId = document.getElementById("email").value;
+var userPassword = document.getElementById("password").value;
+var userContact = document.getElementById("contactNumber").value;
+
+    const userDetails = {
+    "userName": userName,
+    "userEmailId": userEmailId,
+    "userContact": userContact,
+    "userPassword": userPassword
+}
+
+console.log(userDetails , "0000");
+    fetch("http://localhost:3001/credentials/create" ,  {
+     
+     // Adding method type
+     method: "POST",
+     headers: {
+         "Content-Type": "application/json",
+     },
+     // Adding body or contents to send
+     body: JSON.stringify(userDetails),
+      
+     // Adding headers to the request
+  
+    }
+     )
+     .then(response => response.json())
+     .then(data => console.log("1234",data))
+     .catch(err => console.log(err))
+}
+
+
+
+
+
+
+function check(){
+    console.log("success")
+   apiData();
+    var myAlert = document.getElementById("toastNotice");
+
+          var bsAlert = new bootstrap.Toast(myAlert,{
+            delay : 5000
+          });
+          bsAlert.show();
+}
+
+function validateName(name){
+    
+        
+        if (name.value.trim() == "" || name.value.length <= 0) {
+            nameError.innerHTML = "Name is Required";
+            return false;
+        }else if(name.value.length < 6){
+            nameError.innerHTML = "Name length should be greater than 6";
+            return false;
+        }else if(name.value != name.value.toUpperCase()){
+            nameError.innerHTML = "Name should be in Capital Letter";
+            return false;
+        }else{
+            nameError.innerHTML = " ";
+            return true;
+        }
+        
+
+}
+
+function validateEmail(email){
+
+    let subEmail = email.value.substring(email.value.indexOf("."));
+    if(email.value != "" && email.value.indexOf("@") > 2 && email.value.charAt(0) != ""  && email.value.length>3 &&(subEmail == ".com" || subEmail == ".co.in" || subEmail == ".org.in" || subEmail == ".in")){
+      document.getElementById("emailError").innerHTML="";
+      return true
+    }
+    document.getElementById("emailError").innerHTML="Email should be valid with .com , .in , .co.in , .org"
+   return false;    
+}
+
+function validateContact(contact){
+
+  
+    if(contact.value !== "" && contact.value.length == 10 && (contact.value.charAt(0) == "6" || contact.value.charAt(0)=="7" || contact.value.charAt(0)=="8" || contact.value.charAt(0)=="9")){
+        document.getElementById("contactError").innerHTML="";
+        return true;
+    }
+    document.getElementById("contactError").innerHTML="Number should be valid and start with 6-9 and have 10 digits";
+    return false;
+}
+
+function validatePassword(password){
+    upperPattern = /[A-Z]/;
+    lowerpattern = /[a-z]/;
+    numberPattern = /[0-9]/;
+    specialPattern = /[@#\$%\^&\*\+\-\=<>|\(\){\}\?.,\/\\:`;\[\]\~]/;
+    if(password.value.length >= 8 && password.value !== "" && upperPattern.test(password.value) && numberPattern.test(password.value) && specialPattern.test(password.value) ){
+        document.getElementById("passwordError").innerHTML="";
+        return true;
+    }
+    document.getElementById("passwordError").innerHTML="Password must have length of 6 , having at least one capital case , one small case , one number , one special case";
+    return false; 
+}
+
+function validate(curr){
+    if(curr.id == "name"){
+        validName = validateName(curr);
+        console.log(validName , "6565");
+    }else if(curr.id == "email"){
+        validEmail = validateEmail(curr);
+    }else if(curr.id == "contactNumber"){
+        validContact = validateContact(curr)
+    }else if(curr.id == "password"){
+        validPassword = validatePassword(curr);
+    }
+    
+    if(validEmail == true && validContact == true && validPassword==true && validName==true){
+    button.disabled=false
+}
+else{
+    button.disabled=true
+}
+}
+</script>
+
+</html>
